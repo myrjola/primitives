@@ -264,7 +264,8 @@ const SelectTrigger = React.forwardRef<SelectTriggerElement, SelectTriggerProps>
 
           // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
           // but not when the control key is pressed (avoiding MacOS right click)
-          if (event.button === 0 && event.ctrlKey === false) {
+          // and not when on a touch device to prevent opening when scrolling
+          if (event.pointerType !== 'touch' && event.button === 0 && event.ctrlKey === false) {
             handleOpen();
             context.triggerPointerDownPosRef.current = {
               x: Math.round(event.pageX),
